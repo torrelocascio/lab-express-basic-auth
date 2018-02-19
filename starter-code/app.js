@@ -6,6 +6,15 @@ const bodyParser     = require("body-parser");
 const mongoose       = require("mongoose");
 const app            = express();
 
+const authRoutes = require('./routes/auth');
+const siteRoutes = require('./routes/site-routes');
+
+const session    = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+
+
+
+
 // Controllers
 
 // Mongoose configuration
@@ -27,6 +36,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Routes
+app.use('/', authRoutes);
+app.use('/', siteRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
